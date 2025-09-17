@@ -12,7 +12,7 @@
         <div class="container-fluid">
             <div class="row">
                 Name: <input type="text" id="nameInput" 
-                onkeyup="showHint(this.value)"> <!-- add event -->
+                oninput="showHint(this.value)"> <!-- add event -->
             </div>
             <div class="row">
                 Suggestions:
@@ -22,21 +22,21 @@
 
         <script>
             // add event handler code here
-            function showHint(str){
-                  const suggestionElem = document.getElementById("suggestions");
-
-                if (str.length == 0){
-                    suggestionElem.textContent = "";
-                } else {
-                    axios.get('/suggest', {params: {query: str}})
-                    .then(response=>{
-                        suggestionElem.textContent = response.data;
-                    })
-                    .catch(error=> {
-                        suggestionElem.textContent = "No Suggestion(Error)";
-                    })
+            function showHint(input){
+                const output = document.getElementById("suggestions");
+                if (input.length == 0){
+                    output.innerText = "";
+                }else {
+                    axios.get('/suggest', {params: {query:input}})
+                    .then(response=>
+                        output.innerText = response.data
+                    )
+                    .catch(error=>
+                        console.log(error)
+                    );
                 }
             }
+
         </script>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
@@ -44,10 +44,3 @@
       
     </body>
 </html>
-
-axios.get("/suggest"), {
-    params: {
-        "query": document.getElemenyById("nameInput.value");
-        
-    }
-}
