@@ -31,7 +31,7 @@
 <script>
     async function getCategories() {
         try {
-            const res = await axios.get("/categories"); // ✅ relative URL, not hardcoded localhost
+            const res = await axios.get("/categories");
             if (res.data && Array.isArray(res.data)) {
                 showCategories(res.data);
             }
